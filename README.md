@@ -1,6 +1,6 @@
-#Frisking
+# Frisking
 
-#Prerequisites
+# Prerequisites
 
 1. **Python**: Ensure that you have Python3.8+ installed on your system. You can download it from [python.org](https://www.python.org).
 
