@@ -18,6 +18,7 @@ def build_model():
     return model
 
 def preprocess_frame(frame):
+    print('ind')
     if len(frame.shape) == 3 and frame.shape[2] == 3:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
@@ -27,7 +28,8 @@ def preprocess_frame(frame):
     return resized_frame
 
 def process_video(video_path, model):
-    cap = cv2.VideoCapture(video_path)
+    print('inside video process')
+    cap = cv2.VideoCapture(0)
     
     if not cap.isOpened():
         print(f"Error: Could not open video file {video_path}")
