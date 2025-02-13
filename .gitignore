@@ -172,12 +172,12 @@ cython_debug/
 
 uploads/
 .DS_Store
-yolov3.weights
-coco.names
+src/utils/yolov3.weights
+src/utils/coco.names
 test.py
 darknet/
-actionnarayanprabhu.h5
-junk.py
+src/utils/actionnarayanprabhu.h5
+src/junk.py
 
 
 

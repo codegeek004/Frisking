@@ -8,7 +8,7 @@ import tensorflow_hub as hub
 tf.config.set_visible_devices([], 'GPU')
 
 def load_yolo_model():
-    net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+    net = cv2.dnn.readNet("utils/yolov3.weights", "utils/yolov3.cfg")
     layer_names = net.getLayerNames()
     try:
         output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]

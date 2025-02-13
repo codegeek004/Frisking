@@ -19,7 +19,7 @@ model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(len(actions), activation='softmax'))
 
-model.load_weights('actionnarayanprabhu.h5')
+model.load_weights('utils/actionnarayanprabhu.h5')
 
 
 
