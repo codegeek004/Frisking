@@ -14,7 +14,7 @@ def load_yolo_model():
         output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
     except IndexError:
         output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
-    with open("coco.names", "r") as f:
+    with open("utils/coco.names", "r") as f:
         classes = [line.strip() for line in f.readlines()]
     return net, output_layers, classes
 
