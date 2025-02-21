@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.core.files.storage import FileSystemStorage
 import os
 from .detect_people import detect_people
+from .gender_detection import detect_gender
+from django.conf import settings
 
 def detect_people_view(request):
     context = {"detected_people": None, "output_image": None}
@@ -17,3 +19,23 @@ def detect_people_view(request):
         context["output_image"] = output_image_path.replace("ScanSecure/static/", "")
 
     return render(request, "upload_photo.html", context)
+
+def gender_detection_view(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        image = request.FILES['image']
+        image_path = os.path.join(settings.MEDIA_ROOT, 'uploads', image.name)
+
+        os.makedirs(os.path.dirname(image_path), exist_ok=True)
+        with open(image_path, 'wb+') as destination:
+            for chunk in image.chunks():
+                destination.write(chunk)
+
+        gender, error = detect_gender(image_path)
+
+        if error:
+            return render(request, 'gender_detection.html', {'error': error})
+
+        return render(request, 'gender_detection.html', {'gender': gender, 'image_url': settings.MEDIA_URL + 'uploads/' + image.name})
+
+    return render(request, 'gender_detection.html')
+
