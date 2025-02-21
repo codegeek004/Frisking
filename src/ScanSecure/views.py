@@ -4,6 +4,9 @@ import os
 from .detect_people import detect_people
 from .gender_detection import detect_gender
 from django.conf import settings
+from django.core.files.storage import default_storage
+from .sign_detection import detect_sign
+
 
 def detect_people_view(request):
     context = {"detected_people": None, "output_image": None}
@@ -38,4 +41,21 @@ def gender_detection_view(request):
         return render(request, 'gender_detection.html', {'gender': gender, 'image_url': settings.MEDIA_URL + 'uploads/' + image.name})
 
     return render(request, 'gender_detection.html')
+
+
+def sign_detection_view(request):
+    if request.method == "POST" and request.FILES.get("video"):
+        video = request.FILES["video"]
+        video_path = default_storage.save("uploads/" + video.name, video)
+        results = detect_sign(default_storage.path(video_path))
+
+        return render(request, "ScanSecure/sign_detection_results.html", {"results": results})
+
+    return render(request, "sign_detection.html")
+
+
+
+
+
+
 
