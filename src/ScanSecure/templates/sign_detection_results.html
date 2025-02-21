@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Detection Results</title>
+</head>
+<body>
+    <h2>Detected Signs</h2>
+    <ul>
+        {% for action, confidence in results %}
+            <li>{{ action }} - Confidence: {{ confidence|floatformat:2 }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'sign_detection' %}">Upload another video</a>
+</body>
+</html>
