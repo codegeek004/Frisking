@@ -172,13 +172,7 @@ cython_debug/
 
 uploads/
 .DS_Store
-src/utils/yolov3.weights
-src/utils/coco.names
-test.py
 darknet/
-src/utils/actionnarayanprabhu.h5
-src/junk.py
-
-
+src/ScanSecure/utils/
 
 
