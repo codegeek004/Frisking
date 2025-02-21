@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Detection</title>
+</head>
+<body>
+    <h2>Upload a Video for Sign Detection</h2>
+    <form action="{% url 'sign_detection' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="video" accept="video/*" required>
+        <button type="submit">Upload and Detect</button>
+    </form>
+</body>
+</html>
