@@ -7,6 +7,9 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from .sign_detection import detect_sign
 
+def index(request):
+    return render(request, "index.html")
+
 
 def detect_people_view(request):
     context = {"detected_people": None, "output_image": None}
