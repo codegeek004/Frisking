@@ -52,7 +52,7 @@ def sign_detection_view(request):
         video_path = default_storage.save("uploads/" + video.name, video)
         results = detect_sign(default_storage.path(video_path))
 
-        return render(request, "ScanSecure/sign_detection_results.html", {"results": results})
+        return render(request, "sign_detection_results.html", {"results": results})
 
     return render(request, "sign_detection.html")
 
