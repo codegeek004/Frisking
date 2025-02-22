@@ -1,14 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Detection</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+            max-width: 500px;
+            width: 100%;
+        }
+        .btn-custom {
+            margin: 15px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-custom:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f8f9fa;
+        }
+        .dark-mode .container {
+            background-color: #2c2c2c;
+            color: #f8f9fa;
+        }
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .dark-mode-toggle:hover {
+            color: #007bff;
+        }
+        .upload-area {
+            border: 2px dashed #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+        .upload-area img {
+            max-width: 100%;
+            max-height: 150px;
+            margin-top: 10px;
+            display: none;
+        }
+        .upload-area:hover {
+            background-color: #e9ecef;
+        }
+        .spinner-border {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Upload a Video for Sign Detection</h2>
-    <form action="{% url 'sign_detection' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="video" accept="video/*" required>
-        <button type="submit">Upload and Detect</button>
-    </form>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+        <span id="mode-icon">🌙</span>
+    </button>
+    <div class="container">
+        <h2 class="mb-4">Upload a Video for Sign Detection</h2>
+        <form method="post" enctype="multipart/form-data" onsubmit="showSpinner()">
+            {% csrf_token %}
+            <div class="upload-area" id="upload-area" aria-label="File upload area">
+                Drag & Drop or Click to Upload
+                <input type="file" name="video" class="form-control-file" id="file-input" style="display: none;" required>
+                <img id="preview" alt="Video Preview">
+            </div>
+            <button type="submit" class="btn btn-primary btn-custom">Detect Sign</button>
+            <div class="spinner-border text-primary" role="status" id="loading-spinner">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </form>
+
+        {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        {% if result %}
+            <h3 class="mt-4">Detection Result: {{ result }}</h3>
+            <video controls src="{{ video_url }}" class="img-fluid mt-3"></video>
+        {% endif %}
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('mode-icon');
+            icon.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        }
+
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const preview = document.getElementById('preview');
+        const spinner = document.getElementById('loading-spinner');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.backgroundColor = '#e9ecef';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.backgroundColor = '';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileInput.files = e.dataTransfer.files;
+            uploadArea.style.backgroundColor = '';
+            showPreview(fileInput.files[0]);
+        });
+
+        fileInput.addEventListener('change', () => {
+            showPreview(fileInput.files[0]);
+        });
+
+        function showPreview(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function showSpinner() {
+            spinner.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
