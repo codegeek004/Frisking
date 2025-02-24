@@ -92,6 +92,15 @@
             </div>
         </nav>
     </header>
+    <div>
+    {% if messages %}
+    <ul class="messages" style="color: #000; ">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    </div>
 
     <button class="dark-mode-toggle" onclick="toggleDarkMode()">
         <span id="mode-icon">🌙</span>
