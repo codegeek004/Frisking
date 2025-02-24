@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 import os
 from .detect_people import detect_people
@@ -6,12 +6,16 @@ from .gender_detection import detect_gender
 from django.conf import settings
 from django.core.files.storage import default_storage
 from .sign_detection import detect_sign
+from django.contrib import messages
 
 def index(request):
     return render(request, "index.html")
 
 
 def detect_people_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "You are not logged in. Please login to continue.")
+        return redirect('index')
     context = {"detected_people": None, "output_image": None}
     
     if request.method == "POST" and request.FILES.get("image"):
@@ -27,6 +31,9 @@ def detect_people_view(request):
     return render(request, "upload_photo.html", context)
 
 def gender_detection_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "You are not logged in. Please login to continue.")
+        return redirect('index')
     if request.method == 'POST' and request.FILES.get('image'):
         image = request.FILES['image']
         image_path = os.path.join(settings.MEDIA_ROOT, 'uploads', image.name)
@@ -47,6 +54,9 @@ def gender_detection_view(request):
 
 
 def sign_detection_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request, "You are not logged in. Please login to continue.")
+        return redirect('index')
     if request.method == "POST" and request.FILES.get("video"):
         video = request.FILES["video"]
         video_path = default_storage.save("uploads/" + video.name, video)
