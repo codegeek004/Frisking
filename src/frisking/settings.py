@@ -70,12 +70,12 @@ ROOT_URLCONF = 'frisking.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Keep your existing templates
-        'APP_DIRS': True,  # Ensures Django loads templates from installed apps
+        'DIRS': [BASE_DIR / 'templates'], 
+        'APP_DIRS': True,  
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',  # Required for allauth
+                'django.template.context_processors.request',  
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -95,10 +95,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'APP': {
              'client_id': config('client_id', cast=str),
              'secret': config('client_secret', cast=str),
-            # for local development
-            # 'client_id': '99034799467-6l1lm0l6b80h2bcmon2i8st2odg778nj.apps.googleusercontent.com',
-            # 'secret': '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',
-            'key': ''
+             'key': ''
         }
     }   
     
@@ -172,8 +169,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
@@ -181,5 +180,4 @@ ALLAUTH_UI_THEME = "light"
 
 
 LOGIN_REDIRECT_URL = '/'
-# LOGIN_REDIRECT_URL = '/'  # Redirect after successful login
 LOGOUT_REDIRECT_URL = '/' 
