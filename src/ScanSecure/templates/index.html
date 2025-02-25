@@ -5,14 +5,22 @@
 {% block content %}
 <div class="container">
     <h2 class="mb-4">Select a Detection Feature</h2>
-    <form action="{% url 'detect_people' %}">
-        <button type="submit" class="btn btn-primary btn-custom btn-block">Detect People</button>
-    </form>
-    <form action="{% url 'gender_detection' %}">
-        <button type="submit" class="btn btn-secondary btn-custom btn-block">Gender Detection</button>
-    </form>
-    <form action="{% url 'sign_detection' %}">
-        <button type="submit" class="btn btn-success btn-custom btn-block">Sign Language Detection</button>
-    </form>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="{% url 'detect_people' %}">
+                <button type="submit" class="btn btn-primary btn-custom btn-block">Detect People</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form action="{% url 'gender_detection' %}">
+                <button type="submit" class="btn btn-secondary btn-custom btn-block">Gender Detection</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form action="{% url 'sign_detection' %}">
+                <button type="submit" class="btn btn-success btn-custom btn-block">Sign Language Detection</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
