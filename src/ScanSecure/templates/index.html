@@ -1,26 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}Detection Features{% endblock %}
+{% block title %}AI Security Screening{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h2 class="mb-4">Select a Detection Feature</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <form action="{% url 'detect_people' %}">
-                <button type="submit" class="btn btn-primary btn-custom btn-block">Detect People</button>
-            </form>
+    <!-- Header Section -->
+    <header>
+        <h1>AI Security Screening</h1>
+        <p>Advanced AI-driven object frisking, gender detection, and sign recognition for a safer world.</p>
+        <button class="btn">Learn More</button>
+        <button class="btn">Try Demo</button>
+    </header>
+
+    <!-- About Section -->
+    <section>
+        <h2>About AI Security Screening</h2>
+        <p>Our state-of-the-art AI technology ensures real-time security monitoring and threat detection for safer environments. From object frisking to biometric verification, we provide cutting-edge solutions for modern security challenges.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <h2>Key Features</h2>
+        <div class="features">
+            <div class="feature">
+                <img src="https://source.unsplash.com/400x300/?security,technology" alt="Object Frisking">
+                <h3>Object Frisking</h3>
+                <p>AI-powered scanning to detect prohibited objects in real-time with unparalleled accuracy.</p>
+            </div>
+            <div class="feature">
+                <img src="https://source.unsplash.com/400x300/?biometric,face" alt="Gender Detection">
+                <h3>Gender Detection</h3>
+                <p>Biometric verification for accurate identification and enhanced security measures.</p>
+            </div>
+            <div class="feature">
+                <img src="https://source.unsplash.com/400x300/?hand,gesture" alt="Sign Detection">
+                <h3>Sign Detection</h3>
+                <p>AI-based interpretation of hand gestures for improved security and accessibility.</p>
+            </div>
         </div>
-        <div class="col-md-4">
-            <form action="{% url 'gender_detection' %}">
-                <button type="submit" class="btn btn-secondary btn-custom btn-block">Gender Detection</button>
-            </form>
-        </div>
-        <div class="col-md-4">
-            <form action="{% url 'sign_detection' %}">
-                <button type="submit" class="btn btn-success btn-custom btn-block">Sign Language Detection</button>
-            </form>
-        </div>
-    </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="demo-section">
+        <h2>Live Demo</h2>
+        <p>Upload an image or stream live video for AI-powered security detection.</p>
+        <label for="file-upload" class="btn">Upload Image</label>
+        <input id="file-upload" type="file">
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-form">
+        <h2>Contact Us</h2>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea placeholder="Your Message"></textarea>
+        <button class="btn">Send Inquiry</button>
+    </section>
 </div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 AI Security Screening | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+</footer>
 {% endblock %}
