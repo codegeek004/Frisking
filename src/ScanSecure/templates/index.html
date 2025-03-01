@@ -203,6 +203,15 @@
 </head>
 <body>
     <div class="container">
+        <!-- Login/Logout Navigation -->
+        <div style="text-align: right; margin-bottom: 20px;">
+            {% if user.is_authenticated %}
+                <a href="/accounts/logout/" class="btn">Logout</a>
+            {% else %}
+                <a href="http://127.0.0.1:8000/accounts/google/login/?process=login" class="btn">Login</a>
+            {% endif %}
+        </div>
+
         <!-- Header Section -->
         <header>
             <h1>AI Security Screening</h1>
@@ -276,3 +285,4 @@
     </footer>
 </body>
 </html>
+
