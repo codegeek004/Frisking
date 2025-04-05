@@ -6,19 +6,18 @@ import tensorflow_hub as hub
 def build_model():
     pretrained_model_url = "https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/5"
     pretrained_model = hub.KerasLayer(pretrained_model_url, input_shape=(224, 224, 3), trainable=False)
-  
+
     model = tf.keras.Sequential([
         tf.keras.layers.InputLayer(input_shape=(224, 224, 3)),
         tf.keras.layers.Lambda(lambda x: pretrained_model(x)),
         tf.keras.layers.Dense(128, activation='relu'),
         tf.keras.layers.Dense(1, activation='sigmoid')
     ])
-    
+
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
 def preprocess_frame(frame):
-    print('ind')
     if len(frame.shape) == 3 and frame.shape[2] == 3:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     
@@ -27,54 +26,37 @@ def preprocess_frame(frame):
     resized_frame = np.expand_dims(resized_frame, axis=0)
     return resized_frame
 
-def process_video(video_path, model):
-    print('inside video process')
+def capture_and_predict(model):
     cap = cv2.VideoCapture(0)
     
     if not cap.isOpened():
-        print(f"Error: Could not open video file {video_path}")
+        print("Error: Could not access webcam.")
         return
 
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fps = cap.get(cv2.CAP_PROP_FPS)
-
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter('result.mp4', fourcc, fps, (width, height))
-    
-    predictions = []
-    
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            break
-        
-        preprocessed_frame = preprocess_frame(frame)
-        
-        features = model.predict(preprocessed_frame)
-        predictions.append(features[0][0])
-        
-        gender = 'Female' if features[0][0] > 0.5 else 'Male'
-        cv2.putText(frame, f'Gender: {gender}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-        out.write(frame)
-        cv2.imshow('Gender Detection', frame)
-        
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    
+    ret, frame = cap.read()
     cap.release()
-    out.release()
+
+    if not ret:
+        print("Error: Failed to capture image.")
+        return
+
+    preprocessed = preprocess_frame(frame)
+    prediction = model.predict(preprocessed)[0][0]
+
+    gender = 'Female' if prediction > 0.5 else 'Male'
+    print(f"Predicted Gender: {gender} ({prediction:.2f})")
+
+    # Optional: Show the frame with the prediction
+    cv2.putText(frame, f'Gender: {gender}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    cv2.imshow('Captured Frame', frame)
+    cv2.waitKey(0)
     cv2.destroyAllWindows()
-    
-    average_prediction = np.mean(predictions)
-    final_gender = 'Female' if average_prediction > 0.5 else 'Male'
-    print(f'Final Predicted Gender: {final_gender}')
 
 def main():
-    video_path = 'frisking.mp4'
+    print("Loading model...")
     model = build_model()
-    process_video(video_path, model)
+    print("Capturing image and predicting...")
+    capture_and_predict(model)
 
 if __name__ == "__main__":
     main()
-
