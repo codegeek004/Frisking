@@ -4,7 +4,6 @@ from .views import *
 from django.conf import settings
 
 urlpatterns = [
-    path("detect/", detect_people_view, name="detect_people"),
     path('detect-gender/', gender_detection_view, name='gender_detection'),
     path("sign-detection/", sign_detection_view, name="sign_detection"),
     path('', index, name="index")
