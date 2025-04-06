@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 import os
-from .detect_people import detect_people
 from .gender_detection import detect_gender
 from django.conf import settings
 from django.core.files.storage import default_storage
