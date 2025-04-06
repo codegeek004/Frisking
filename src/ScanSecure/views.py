@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage
 from .sign_detection import detect_sign
 from django.contrib import messages
+from django.core.mail import EmailMessage
 
 def index(request):
     return render(request, "index.html")
@@ -47,6 +48,35 @@ def sign_detection_view(request):
 
     return render(request, "sign_detection.html")
 
+
+def send_enquiry_mail(request):
+    name = request.POST.get('username')
+    email_address = request.POST.get('email')
+    message = request.POST.get('message')
+    email = EmailMessage(f'Query for services', message, to=['codegeek004@gmail.com'])
+    email.send()
+
+    message1 = "We have received your request. This will be processed within a few hours. Thank you for choosing codegeeks"
+    email = EmailMessage("Received request", message1, to=[email_address])
+    email.send()
+
+def detect_both(request):
+    context = {}
+    if request.method == 'POST':
+        image_file = request.FILES.get('image')
+        video_file = request.FILES.get('video')
+
+        if image_file:
+            img_path = default_storage.save(f"temp/{image_file.name}", image_file)
+            gender, err = detect_gender(default_storage.path(img_path))
+            context['gender'] = gender if not err else err
+
+        if video_file:
+            vid_path = default_storage.save(f"temp/{video_file.name}", video_file)
+            results = detect_sign(default_storage.path(vid_path))
+            context['signs'] = results
+
+    return render(request, 'detect.html', context)
 
 
 
