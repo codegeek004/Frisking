@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo - AI Security Vista</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container">
+      <div class="logo">
+        <i data-lucide="shield" class="logo-icon"></i>
+        <span class="logo-text">AI Security Vista</span>
+      </div>
+      
+      <nav class="nav-desktop">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="demo.html" class="nav-link active">Live Demo</a>
+        <a href="about.html" class="nav-link">About Team</a>
+        <button id="loginBtn" class="neon-button">Login</button>
+      </nav>
+      
+      <button class="mobile-menu-btn">
+        <i data-lucide="menu" class="menu-icon"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div class="mobile-menu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="demo.html" class="nav-link active">Live Demo</a>
+      <a href="about.html" class="nav-link">About Team</a>
+      <button id="mobileLoginBtn" class="neon-button full-width">Login</button>
+    </div>
+  </header>
+
+  <!-- Demo Section -->
+  <section class="demo-section">
+    <div class="container">
+      <div class="section-header">
+        <h1>AI Security <span class="highlight">Live Demo</span></h1>
+        <p>Test our AI security technologies by uploading your own images or videos.</p>
+      </div>
+
+      <div class="tabs">
+        <div class="tab-header">
+          <button class="tab-button" data-tab="gender-detection">
+            <i data-lucide="users" class="tab-icon"></i>
+            Gender Detection
+          </button>
+          <button class="tab-button" data-tab="sign-recognition">
+            <i data-lucide="camera" class="tab-icon"></i>
+            Sign Recognition
+          </button>
+        </div>
+
+        <div class="tab-content">
+
+
+          <!-- Gender Detection Content -->
+          <div class="tab-pane" id="gender-detection">
+            <div class="file-upload-container">
+              <h2>Gender Detection Demo</h2>
+              <p>Upload an image to detect and classify gender. Our AI will analyze facial and body features to determine gender.</p>
+              
+              <div class="upload-area" id="gender-detection-upload">
+                <div class="upload-prompt">
+                  <i data-lucide="upload" class="upload-icon"></i>
+                  <p>Drag and drop your image here, or click to browse</p>
+                  <p class="file-types">JPG, PNG, GIF up to 10MB</p>
+                  <input type="file" id="gender-detection-input" accept="image/*" class="file-input">
+                </div>
+                <div class="upload-preview hidden">
+                  <button class="clear-file-btn" data-target="gender-detection">
+                    <i data-lucide="x" class="clear-icon"></i>
+                  </button>
+                  <img id="gender-detection-preview" src="" alt="Preview" class="file-preview">
+                  <div class="upload-actions">
+                    <div class="file-info">
+                      <i data-lucide="image" class="file-icon"></i>
+                      <span id="gender-detection-filename" class="filename"></span>
+                    </div>
+                    <button class="process-btn" data-target="gender-detection">Process Image</button>
+                  </div>
+                  <div id="gender-detection-result" class="result-container hidden">
+                    <i data-lucide="check" class="result-icon"></i>
+                    <span class="result-text">Detection completed successfully!</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="how-it-works">
+                <h3>How It Works</h3>
+                <p>Our gender detection system uses a combination of facial analysis and body pose estimation to accurately identify gender:</p>
+                <ol>
+                  <li>Facial feature extraction using convolutional neural networks</li>
+                  <li>Secondary validation through body proportion analysis</li>
+                  <li>Ensemble learning to combine multiple prediction models</li>
+                  <li>Confidence scoring to ensure reliable results</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sign Recognition Content -->
+          <div class="tab-pane" id="sign-recognition">
+            <div class="file-upload-container">
+              <h2>Sign Recognition Demo</h2>
+              <p>Upload an image to detect and interpret signs and gestures. Our AI will analyze the image and identify the meaning of gestures.</p>
+              
+              <div class="upload-area" id="sign-recognition-upload">
+                <div class="upload-prompt">
+                  <i data-lucide="upload" class="upload-icon"></i>
+                  <p>Drag and drop your image here, or click to browse</p>
+                  <p class="file-types">JPG, PNG, GIF up to 10MB</p>
+                  <input type="file" id="sign-recognition-input" accept="image/*" class="file-input">
+                </div>
+                <div class="upload-preview hidden">
+                  <button class="clear-file-btn" data-target="sign-recognition">
+                    <i data-lucide="x" class="clear-icon"></i>
+                  </button>
+                  <img id="sign-recognition-preview" src="" alt="Preview" class="file-preview">
+                  <div class="upload-actions">
+                    <div class="file-info">
+                      <i data-lucide="image" class="file-icon"></i>
+                      <span id="sign-recognition-filename" class="filename"></span>
+                    </div>
+                    <button class="process-btn" data-target="sign-recognition">Process Image</button>
+                  </div>
+                  <div id="sign-recognition-result" class="result-container hidden">
+                    <i data-lucide="check" class="result-icon"></i>
+                    <span class="result-text">Detection completed successfully!</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="how-it-works">
+                <h3>How It Works</h3>
+                <p>Our sign recognition technology can identify and interpret a wide range of hand gestures and body language:</p>
+                <ol>
+                  <li>Hand and body keypoint detection using pose estimation</li>
+                  <li>Gesture classification using recurrent neural networks</li>
+                  <li>Temporal pattern recognition for dynamic gestures</li>
+                  <li>Context-aware interpretation based on environmental factors</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-company">
+          <div class="footer-logo">
+            <i data-lucide="shield" class="logo-icon-small"></i>
+            <span>AI Security Vista</span>
+          </div>
+          <p>Advanced AI-driven security solutions for a safer world.</p>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="demo.html">Live Demo</a></li>
+            <li><a href="about.html">About Team</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3>Contact</h3>
+          <div class="contact-links">
+            <a href="mailto:info@aisecurityvista.com" class="contact-link">
+              <i data-lucide="mail" class="contact-icon"></i>
+              <span>info@aisecurityvista.com</span>
+            </a>
+            <a href="https://github.com/ai-security-vista" class="contact-link">
+              <i data-lucide="github" class="contact-icon"></i>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© <span id="currentYear"></span> AI Security Vista. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
