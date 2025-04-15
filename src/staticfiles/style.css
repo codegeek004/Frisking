@@ -1,0 +1,80 @@
+/* Custom styles for AI Security Vista */
+
+/* Base Styles */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Teal color utility */
+.text-teal-400 {
+    color: #00e1d9;
+}
+
+.text-teal-500 {
+    color: #00c0b9;
+}
+
+.bg-teal-400 {
+    background-color: #00e1d9;
+}
+
+.bg-teal-500 {
+    background-color: #00c0b9;
+}
+
+.border-teal-400 {
+    border-color: #00e1d9;
+}
+
+.hover\:text-teal-400:hover {
+    color: #00e1d9;
+}
+
+.hover\:text-teal-500:hover {
+    color: #00c0b9;
+}
+
+.hover\:bg-teal-400:hover {
+    background-color: #00e1d9;
+}
+
+.hover\:bg-teal-500:hover {
+    background-color: #00c0b9;
+}
+
+.focus\:ring-teal-400:focus {
+    --tw-ring-color: #00e1d9;
+}
+
+/* Feature card styles */
+.feature-card {
+    border: 1px solid #00e1d9;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    border-color: rgba(0, 225, 217, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Custom animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
